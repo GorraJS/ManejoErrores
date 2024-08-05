@@ -24,6 +24,8 @@ function App() {
     getWeb();
   };
 
+
+
   return (
     <>
       <form>
@@ -32,7 +34,6 @@ function App() {
           generar
         </button>
       </form>
-      <h4>Numero Telefonico: {user.results[0].name.title}</h4>
       <h4>
         Name: {user.results[0].name.first} {user.results[0].name.last}
       </h4>
@@ -41,6 +42,10 @@ function App() {
       <h4>Ciudad: {user.results[0].location.city}</h4>
       <h4>Email: {user.results[0].email}</h4>
       <h4>Numero Telefonico: {user.results[0].cell}</h4>
+
+      <h2>|--------LISTA--------|</h2>
+
+      <ol id="miLista"></ol>
     </>
   );
 }
