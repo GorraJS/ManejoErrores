@@ -7,20 +7,25 @@ function App() {
 
   const getWeb = () => {
     let URL = `https://restcountries.com/v3.1/name/${pais}`;
-    fetch(URL)  
-      .then((response) => response.json())
+    fetch(URL)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.error(`HTML error! Status: ${response.status}`);
+        }
+      })
       .then((data) => {
-        setCountry(data[0]);  
+        setCountry(data[0]);
       });
   };
 
   const selectCountry = (e) => {
     setPais(e.target.value);
-  };          
+  };
 
   const Submit = (e) => {
     e.preventDefault();
-
     getWeb();
   };
 

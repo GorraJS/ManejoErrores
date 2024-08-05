@@ -2,30 +2,40 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [user, newUser] = useState('')  
+  const [user, newUser] = useState("");
 
   const getWeb = () => {
-    let url = 'https://randomuser.me/api/'
-      fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        newUser(data)
+    let url = "https://randomuser.me/api/";
+    fetch(url)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.error(`HTML error! Status: ${response.status}`);
+        }
       })
-  }
+      .then((data) => {
+        newUser(data);
+      });
+  };
 
   const Generate = (e) => {
-    e.preventDefault()
-    getWeb()
-  }
+    e.preventDefault();
+    getWeb();
+  };
 
   return (
     <>
       <form>
         <h2>Human Generator</h2>
-        <button type="submit" onClick={Generate}>generar</button>
+        <button type="submit" onClick={Generate}>
+          generar
+        </button>
       </form>
       <h4>Numero Telefonico: {user.results[0].name.title}</h4>
-      <h4>Name: {user.results[0].name.first} {user.results[0].name.last}</h4>
+      <h4>
+        Name: {user.results[0].name.first} {user.results[0].name.last}
+      </h4>
       <h4>Genero: {user.results[0].gender}</h4>
       <h4>Pais: {user.results[0].location.country}</h4>
       <h4>Ciudad: {user.results[0].location.city}</h4>
