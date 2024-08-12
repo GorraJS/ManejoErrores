@@ -3,6 +3,7 @@ import "./App.css";
 
 function App() {
   const [user, newUser] = useState("");
+  const [userList, setUserList] = useState([]);
 
   const getWeb = () => {
     let url = "https://randomuser.me/api/";
@@ -16,6 +17,7 @@ function App() {
       })
       .then((data) => {
         newUser(data);
+        setUserList((prevList) => [...prevList, data.results[0]]);
       });
   };
 
@@ -24,7 +26,9 @@ function App() {
     getWeb();
   };
 
-
+  const listado = () => {
+    setUserList(...userList, newUser);
+  };
 
   return (
     <>
@@ -45,7 +49,13 @@ function App() {
 
       <h2>|--------LISTA--------|</h2>
 
-      <ol id="miLista"></ol>
+      <ol>
+        {userList.map((user, index) => (
+          <li key={index}>
+            {user.name.first} {user.name.last}
+          </li>
+        ))}
+      </ol>
     </>
   );
 }
